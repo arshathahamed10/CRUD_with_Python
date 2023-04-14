@@ -57,50 +57,62 @@ def update():
     print("5.Mail")
     option=int(input("Which field you want to update : "))
     if option==1:
-       pid=input("Enter your ID : ")
-       name = input("Enter your Name : ")
-       cur = con.cursor()
-       sql="UPDATE data set NAME=%s where PID=%s"
-       cur.execute(sql,(name,pid))
-       con.commit()
-       select()
-       print("Update Successfully")
+        pid=input("Enter your ID : ")
+        name = input("Enter your Name : ")
+        cur = con.cursor()
+        sql="UPDATE data set NAME=%s where PID=%s"
+        cur.execute(sql,(name,pid))
+        con.commit()
+        select()
+        print("Update Successfully")
     elif option==2:
-       pid=input("Enter your ID : ")
-       age = input("Enter your Age : ")
-       cur = con.cursor()
-       sql="UPDATE data set AGE=%s where PID=%s"
-       cur.execute(sql,(age,pid))
-       con.commit()
-       select()
-       print("Update Successfully")
+        pid=input("Enter your ID : ")
+        age = input("Enter your Age : ")
+        if not int(age)>=18 or not age.isdigit():
+            print("Invalid age or age should be greater than 18")
+            update()
+        else:
+            cur = con.cursor()
+            sql="UPDATE data set AGE=%s where PID=%s"
+            cur.execute(sql,(age,pid))
+            con.commit()
+            select()
+            print("Update Successfully")
     elif option==3:
-       pid=input("Enter your ID : ")
-       address = input("Enter your Address : ")
-       cur = con.cursor()
-       sql="UPDATE data set ADDRESS=%s where PID=%s"
-       cur.execute(sql,(address,pid))
-       con.commit()
-       select()
-       print("Update Successfully")
+        pid=input("Enter your ID : ")
+        address = input("Enter your Address : ")
+        cur = con.cursor()
+        sql="UPDATE data set ADDRESS=%s where PID=%s"
+        cur.execute(sql,(address,pid))
+        con.commit()
+        select()
+        print("Update Successfully")
     elif option==4:
-       pid=input("Enter your ID : ")
-       contact = input("Enter your Contact : ")
-       cur = con.cursor()
-       sql="UPDATE data set CONTACT=%s where PID=%s"
-       cur.execute(sql,(contact,pid))
-       con.commit()
-       select()
-       print("Update Successfully")
+        pid=input("Enter your ID : ")
+        contact = input("Enter your Contact : ")
+        if len(contact)!=10:
+            print("Invalid Contact number")
+            print("Updation is Unsuccessful")
+        else:
+            cur = con.cursor()
+            sql="UPDATE data set CONTACT=%s where PID=%s"
+            cur.execute(sql,(contact,pid))
+            con.commit()
+            select()
+            print("Update Successfully")
     elif option==5:
-       pid=input("Enter your ID : ")
-       mail = input("Enter your Mail : ")
-       cur = con.cursor()
-       sql="UPDATE data set MAIL=%s where PID=%s"
-       cur.execute(sql,(mail,pid))
-       con.commit()
-       select()
-       print("Update Successfully")
+        pid=input("Enter your ID : ")
+        mail = input("Enter your Mail : ")
+        if not (re.fullmatch(regex, mail)):
+            print("Invalid Mail address")
+            print("Updation is Unsuccessful")
+        else:
+            cur = con.cursor()
+            sql="UPDATE data set MAIL=%s where PID=%s"
+            cur.execute(sql,(mail,pid))
+            con.commit()
+            select()
+            print("Update Successfully")
     else:
         print("Invalid Syntax")
 
