@@ -13,24 +13,28 @@ con = mysql.connector.connect(host="localhost",user="root",password="",database=
 
 def insert():
     name=input("Enter Name : ")
-    try:
-        age =int(input("Enter Age : "))
-    except ValueError:
-        print("The Age should be in Integer")
-        insert()
+    age =input("Enter Age : ")
+    if not int(age)>=18 or not age.isdigit():
+        age = None
     address=input("Enter Address : ")
     contact=input("Enter Contact : ")
     if len(contact) != 10:
-        print("Invalid Phone Number")
-        print("Record Inserted Unuccessfully")
-        insert()
+        contact = None
     mail=input("Enter Mail : ")
-    if(re.fullmatch(regex, mail)):
-        print("Record Insert Successfully")
-    else:
-        print("Invalid Mail address")
-        print("Record Inserted Unuccessfully")
+    if not (re.fullmatch(regex, mail)):
+       mail = None
+    if age==None:
+        print("Invalid Age")
+    if contact==None:
+        print("Invalid Phone Number")
+    if mail==None:
+        print("Invalid Email")
+    if age==None or contact==None or mail==None:
+        print("Record Inserted Unsuccessfully")
         insert()
+    else:
+        print("Record Inserted Successfully")
+        
 
     res=con.cursor()
     sql = "insert into data (NAME,AGE,ADDRESS,CONTACT,MAIL) values (%s,%s,%s,%s,%s)"
